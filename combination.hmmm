@@ -22,25 +22,44 @@
 ################################################################################
 0 read r1          # Read n
 1 read r2          # Read k
-2 jeqzn r1 13      # Invalid if n = 0
-3 jltzn r1 13      # Invalid if n < 0
-4 jeqzn r2 13      # Invalid if k = 0
-5 jltzn r2 13      # Invalid if k < 0
+2 jeqzn r1 30      # Invalid if n = 0
+3 jltzn r1 30      # Invalid if n < 0
+4 jeqzn r2 30      # Invalid if k = 0
+5 jltzn r2 30      # Invalid if k < 0
 6 sub r4 r1 r2     # Calculate n - k
-7 jltzn r4 13      # Invalid if k > n
+7 jltzn r4 30      # Invalid if k > n
 8 copy r3 r1        # Pass n to factorial
 9 setn r14 11       # Set return address
-10 jumpn 16         # Call factorial
-11 write r13        # Print factorial result
-12 halt            # Stop after factorial
-13 setn r5 -1      # Set invalid result
-14 write r5        # Print -1
-15 halt            # Stop invalid input
-16 setn r13 1       # Initialize factorial result
-17 setn r6 1        # Initialize counter
-18 sub r7 r6 r3     # Compare counter with input
-19 jgtzn r7 23      # Exit loop if counter > input
-20 mul r13 r13 r6   # Multiply result by counter
-21 addn r6 1        # Increase counter
-22 jumpn 18         # Repeat loop
-23 jumpr r14        # Return to caller
+10 jumpn 35         # Call factorial
+11 copy r8 r13     # Save n!
+12 copy r3 r2      # Pass k to factorial
+13 setn r14 15       # Return to line 15
+14 jumpn 35          # Call factorial for k
+15 copy r9 r13       # Save k!
+16 copy r3 r4        # Pass n-k to factorial
+17 setn r14 19       # Return to line 19
+18 jumpn 35          # Call factorial for n-k
+19 copy r10 r13      # Save (n-k)!
+20 mul r11 r9 r10    # Calculate k! * (n-k)!
+21 div r12 r8 r11    # Calculate combination
+22 write r12         # Print result
+23 halt              # Stop program
+24 nop               # Reserved
+25 nop               # Reserved
+26 nop               # Reserved
+27 nop               # Reserved
+28 nop               # Reserved
+29 nop               # Reserved
+30 setn r5 -1        # Invalid result
+31 write r5          # Print -1
+32 halt              # Stop invalid input
+33 nop               # Reserved
+34 nop               # Reserved
+35 setn r13 1        # Initialize factorial result
+36 setn r6 1         # Initialize counter
+37 sub r7 r6 r3      # Compare counter with input
+38 jgtzn r7 42       # Exit if counter > input
+39 mul r13 r13 r6    # Multiply result by counter
+40 addn r6 1         # Increase counter
+41 jumpn 37          # Repeat loop
+42 jumpr r14         # Return to caller
