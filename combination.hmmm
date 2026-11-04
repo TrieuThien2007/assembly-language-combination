@@ -22,16 +22,25 @@
 ################################################################################
 0 read r1          # Read n
 1 read r2          # Read k
-2 jeqzn r1 12      # Invalid if n = 0
-3 jltzn r1 12      # Invalid if n < 0
-4 jeqzn r2 12      # Invalid if k = 0
-5 jltzn r2 12      # Invalid if k < 0
+2 jeqzn r1 13      # Invalid if n = 0
+3 jltzn r1 13      # Invalid if n < 0
+4 jeqzn r2 13      # Invalid if k = 0
+5 jltzn r2 13      # Invalid if k < 0
 6 sub r4 r1 r2     # Calculate n - k
-7 jltzn r4 12      # Invalid if k > n
-8 write r1         # Temporarily print n
-9 write r2         # Temporarily print k
-10 halt            # Stop program
-11 nop             # Unused instruction
-12 setn r5 -1      # Set invalid result
-13 write r5        # Print -1
-14 halt            # Stop program
+7 jltzn r4 13      # Invalid if k > n
+8 copy r3 r1        # Pass n to factorial
+9 setn r14 11       # Set return address
+10 jumpn 16         # Call factorial
+11 write r13        # Print factorial result
+12 halt            # Stop after factorial
+13 setn r5 -1      # Set invalid result
+14 write r5        # Print -1
+15 halt            # Stop invalid input
+16 setn r13 1       # Initialize factorial result
+17 setn r6 1        # Initialize counter
+18 sub r7 r6 r3     # Compare counter with input
+19 jgtzn r7 23      # Exit loop if counter > input
+20 mul r13 r13 r6   # Multiply result by counter
+21 addn r6 1        # Increase counter
+22 jumpn 18         # Repeat loop
+23 jumpr r14        # Return to caller
