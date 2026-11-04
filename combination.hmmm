@@ -20,6 +20,18 @@
 ################################################################################
 # read n, print n, and stop
 ################################################################################
-0 read  r1 # read n
-1 write r1 # print n
-2 halt     # stop the program
+0 read r1          # Read n
+1 read r2          # Read k
+2 jeqzn r1 12      # Invalid if n = 0
+3 jltzn r1 12      # Invalid if n < 0
+4 jeqzn r2 12      # Invalid if k = 0
+5 jltzn r2 12      # Invalid if k < 0
+6 sub r4 r1 r2     # Calculate n - k
+7 jltzn r4 12      # Invalid if k > n
+8 write r1         # Temporarily print n
+9 write r2         # Temporarily print k
+10 halt            # Stop program
+11 nop             # Unused instruction
+12 setn r5 -1      # Set invalid result
+13 write r5        # Print -1
+14 halt            # Stop program
