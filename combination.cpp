@@ -5,7 +5,17 @@ using namespace std;
 /*
  * *** STUDENTS SHOULD WRITE CODE FOR THIS FUNCTION ***
  */
-uint16_t factorial(const uint16_t x) { return x; }
+
+uint16_t factorial(const uint16_t x) {
+    uint16_t result = 1;
+
+    for (uint16_t i = 1; i <= x; i++) {
+        result = result * i;
+    }
+
+    return result;
+}
+
 
 /*
  * *** STUDENTS SHOULD WRITE CODE FOR THIS FUNCTION ***
