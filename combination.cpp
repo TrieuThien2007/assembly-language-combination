@@ -35,10 +35,15 @@ if (n <= 0 || k <= 0 || k > n) {
 }
 
     // calculate C(n,k) = n! / (k! * (n-k)!)
-    uint16_t c_n_k = factorial(n);
 
-    // write out results
-    cout << "result = " << c_n_k << endl;
+uint16_t nFact = factorial(n);
+uint16_t kFact = factorial(k);
+uint16_t diffFact = factorial(n - k);
+
+uint16_t result = nFact / (kFact * diffFact);
+
+cout << "result = " << result << endl;
+
 
     return 0;
 }
